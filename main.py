@@ -48,6 +48,8 @@ def get_answer(llm, messages):
 
 ### 登録ページ ###
 if page == 'registration':
+    init_messages()
+    
     st.title('新しい英単語を覚えよう！🤗')
     with st.form(key='registration'):
         content: str = st.text_input('覚えたい英単語を入力してください', max_chars=100)
@@ -58,6 +60,20 @@ if page == 'registration':
         submit_button = st.form_submit_button(label='登録')
 
         if submit_button:
+            if example_sentence:
+                # 例文、その日本語訳、語源の説明、を ChatGPT API を利用して生成する
+                llm = llm = select_model()
+                prompt = build_prompt(content)
+                st.session_state.messages.append(HumanMessage(content=prompt))
+                with st.spinner("ChatGPT is typing ..."):
+                    answer, cost = get_answer(llm, st.session_state.messages)
+                st.session_state.costs.append(cost)
+
+                if answer:
+                    st.markdown("## Responce")
+                    st.write(answer)
+    
+
             url = 'http://127.0.0.1:8000/memos'
             res = requests.post(
                 url,
@@ -65,6 +81,7 @@ if page == 'registration':
             )
             if res.status_code == 200:
                 st.success('メモ登録完了')
+
 
     costs = st.session_state.get('costs', [])
     st.sidebar.markdown("## Costs")
