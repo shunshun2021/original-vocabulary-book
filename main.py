@@ -37,7 +37,14 @@ def select_model():
     return ChatOpenAI(temperature=0, model_name=model_name)
 
 def build_prompt(content, n_chars=300):
-    return f"""英単語「{content}」を覚えるための簡単な英語の例文、その日本語訳、単語の由来、の三点を箇条書きで教えてください."""
+    return f"""英単語「{content}」を覚えるために以下の4つの情報をこの順にJSONで出力してください.
+    {content}の日本語訳、{content}を使った簡単な英語の例文、その例文の日本語訳、単語の由来.
+    以下の形式でデータを出力してください.
+    "japanese":<japanese>,
+    "sample_sentence":<sample_sentence>,
+    "sample_senetnce_in_japanese":<sample_japanese>,
+    "origin":<origin>
+    """
 
 
 def get_answer(llm, messages):
@@ -49,7 +56,8 @@ def get_answer(llm, messages):
 ### 登録ページ ###
 if page == 'registration':
     init_messages()
-    
+    llm=select_model()
+
     st.title('新しい英単語を覚えよう！🤗')
     with st.form(key='registration'):
         content: str = st.text_input('覚えたい英単語を入力してください', max_chars=100)
@@ -62,7 +70,6 @@ if page == 'registration':
         if submit_button:
             if example_sentence:
                 # 例文、その日本語訳、語源の説明、を ChatGPT API を利用して生成する
-                llm = llm = select_model()
                 prompt = build_prompt(content)
                 st.session_state.messages.append(HumanMessage(content=prompt))
                 with st.spinner("ChatGPT is typing ..."):
@@ -70,9 +77,11 @@ if page == 'registration':
                 st.session_state.costs.append(cost)
 
                 if answer:
-                    st.markdown("## Responce")
-                    st.write(answer)
-    
+                    st.markdown("## 以下の内容で登録しました.")
+                    outputs = answer.split(",")
+                    for output in outputs:
+                        output = output.split(":")[1]
+                        st.write(output.split("\"")[1])
 
             url = 'http://127.0.0.1:8000/memos'
             res = requests.post(
