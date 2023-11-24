@@ -1,5 +1,4 @@
-# original-vocabulary-book
-ChatGPT APIによる「丸暗記脱却英単語アプリ」
+# ChatGPT APIを活用した「丸暗記脱却！英単語帳アプリ」
 
 ## 特徴
 ChatGPT APIによって
