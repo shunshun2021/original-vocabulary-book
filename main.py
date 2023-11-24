@@ -43,7 +43,7 @@ def build_prompt(content, n_chars=300):
     "japanese":<japanese>,
     "sample_sentence":<sample_sentence>,
     "sample_senetnce_in_japanese":<sample_japanese>,
-    "origin":<origin>
+    "origin":<origin(日本語)>
     """
 
 
@@ -62,7 +62,8 @@ if page == 'registration':
     with st.form(key='registration'):
         content: str = st.text_input('覚えたい英単語を入力してください', max_chars=100)
         data = {
-                'content': content
+                #'content': content
+                'word': content
         }
         example_sentence = st.checkbox(label="例文を作成し、語源の説明を追加する")        
         submit_button = st.form_submit_button(label='登録')
@@ -80,14 +81,19 @@ if page == 'registration':
                     st.markdown("## 以下の内容で登録しました.")
                     outputs = answer.split(",")
                     for output in outputs:
-                        output = output.split(":")[1]
-                        st.write(output.split("\"")[1])
+                        output_1, output_2 = output.split(":")
+                        output_1_2 = output_1.split("\"")[1]
+                        output_2_2 = output_2.split("\"")[1]
+                        st.write(output_2_2)
+                        data[output_1_2]=output_2_2
+                
 
             url = 'http://127.0.0.1:8000/memos'
             res = requests.post(
                 url,
                 data=json.dumps(data)
             )
+            st.write(data)
             if res.status_code == 200:
                 st.success('メモ登録完了')
 
@@ -100,8 +106,13 @@ if page == 'registration':
 
 
 elif page == 'list':
-    st.title('メモ一覧画面')
+    st.title('単語一覧画面')
     res = requests.get('http://127.0.0.1:8000/memos')
     records = res.json()
     for record in records:
-        st.subheader('・' + record.get('content'))
+        #st.subheader('・' + record.get('sample_sentence'))
+        st.subheader('・' + record["word"])
+        st.write('訳：'+record["japanese"])
+        st.write('例文：'+record["sample_sentence"])
+        st.write('('+record["sample_sentence_in_japanese"]+")")
+        st.write('語の由来：'+record["origin"])
