@@ -12,5 +12,5 @@ ChatGPT APIによって
 
 ----------------------------------------------
 ### 登録画面
-<img width="50%" alt="registration_screen" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/8617eac1-1b43-4511-9ba1-7e4f2929b800">
+<img width="75%" alt="registration_screen" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/8617eac1-1b43-4511-9ba1-7e4f2929b800">
 <!-- <img src="![registration_screen](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/8617eac1-1b43-4511-9ba1-7e4f2929b800)" width="50%"\>>
