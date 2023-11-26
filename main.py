@@ -93,9 +93,11 @@ if page == 'registration':
                 url,
                 data=json.dumps(data)
             )
-            st.write(data)
+            #st.write(data)
             if res.status_code == 200:
                 st.success('メモ登録完了')
+            else:
+                st.warning('出力に不具合がありました\nもう一度登録してください.')
 
 
     costs = st.session_state.get('costs', [])
@@ -106,9 +108,33 @@ if page == 'registration':
 
 
 elif page == 'list':
+    st.session_state.index = 0
+
     st.title('単語一覧画面')
     res = requests.get('http://127.0.0.1:8000/memos')
     records = res.json()
+    elements = list(records)
+
+    ### 以下, ページ表示に関する実装 ###
+    # 現在の要素のインデックスを格納する変数
+    current_index = st.session_state.get("current_index", 0)
+    
+    col = st.columns(2)
+    prev=col[0].button('Previous')
+    next=col[1].button('Next')
+
+    # 前の要素に移動するボタン
+    if prev and current_index > 0:
+        current_index -= 1
+    # 次の要素に移動するボタン
+    if next and current_index < len(elements) - 1:
+        current_index += 1
+    # 現在の要素を表示
+    #st.write(f"Current Element: {elements[current_index]}")
+    # セッション状態を更新
+    st.session_state["current_index"] = current_index
+
+
     for record in records:
         #st.subheader('・' + record.get('sample_sentence'))
         st.subheader('・' + record["word"])
