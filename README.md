@@ -22,3 +22,10 @@ ChatGPT APIによって
 </p>
 <!-- ![exacerbate](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652)-->
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
+
+------------------------
+## ToDo
+以下のような機能の追加を考えています.
+- 1ページあたりの表示単語数のカスタム機能
+- 単語テスト機能
+- 単語リストの表示の工夫 (e.g. 最終正解日が最も古いもの, エビングハウスの忘却曲線に基づく定着率の低いもの)
