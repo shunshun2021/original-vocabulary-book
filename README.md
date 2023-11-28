@@ -35,6 +35,10 @@
 <!-- ![exacerbate](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652)-->
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
 
+## 主な使用技術
+- Streamlit
+- FastAPI
+- ChatGPT API
 
 ------------------------
 ## ToDo
