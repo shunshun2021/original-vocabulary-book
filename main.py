@@ -115,13 +115,38 @@ if page == 'registration':
 
 
 elif page == 'list':
-    if "current_index" not in st.session_state:
-        st.session_state["current_index"]=0
 
+    
     st.title('単語リスト')
     res = requests.get('http://127.0.0.1:8000/memos')
     records = res.json()
     elements = list(records)
+    word_num = len(elements)
+
+
+    # 現在のページ
+    if "current_index" not in st.session_state:
+        st.session_state["current_index"]=0
+
+    # 1ページ当たりに表示する単語数
+    if "word_per_page" not in st.session_state:
+        st.session_state["word_per_page"]=1
+
+    # プルダウンサイドバーに表示させる
+    word_per_page = st.sidebar.selectbox(
+        '1ページあたりに表示する単語数はここで変更可能',
+        (1,2,4,8))
+    
+    # 1ページあたりの単語数に変更があった場合
+    if(word_per_page!=st.session_state["word_per_page"]):
+        st.session_state["word_per_page"]=min(word_per_page,word_num)
+        # ページindex は 0 に戻るようにする (後で元の単語が表示されていたページを表示できるようにするかも)
+        st.session_state["current_index"] = 0
+        current_index=0
+
+    page_num = max(0,word_num-1)//word_per_page
+
+    
 
     ### 以下, ページ表示に関する実装 ###
     # 現在の要素のインデックスを格納する変数
@@ -136,24 +161,20 @@ elif page == 'list':
         current_index -= 1
         st.session_state["current_index"] = current_index
     # 次の要素に移動するボタン
-    if next and current_index < len(elements) - 1:
+    if next and current_index < page_num :
         current_index += 1
         st.session_state["current_index"] = current_index
 
     # 現在の位置を表示
-    med = col[1].write("{:3d} / {:3d}".format(st.session_state.current_index+1,len(elements)))
+    med = col[1].write("{:3d} / {:3d}".format(st.session_state.current_index+1,page_num+1))
     
     # 現在の要素を表示
-    print_word(records[current_index])
+    start=current_index*word_per_page
+    for i in range(start, start+word_per_page):
+        if(i<word_num):
+            print_word(records[i])
+        #print_word(records[current_index])
+
+
     # セッション状態を更新
     st.session_state["current_index"] = current_index
-
-    
-    #for record in records:
-        #st.subheader('・' + record.get('sample_sentence'))
-    #    st.subheader('・' + record["word"])
-    #    st.write('訳：'+record["japanese"])
-    #    st.write('例文：'+record["sample_sentence"])
-    #    st.write('('+record["sample_sentence_in_japanese"]+")")
-    #    st.write('語の由来：'+record["origin"])
-    #
