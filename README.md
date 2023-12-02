@@ -6,7 +6,7 @@
 - 語の由来
 
 を自動で生成し、英単語と共に単語帳に保存します。
-これにより、自分専用の丸暗記ではなく、語の使い方や成り立ちを理解しながら勉強できる英単語帳を作ることができます！
+これにより丸暗記ではなく、語の使い方や成り立ちを理解しながら勉強できる自分専用の英単語帳を作ることができます！
 
 
 ## 開発背景
@@ -35,6 +35,10 @@
 <!-- ![exacerbate](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652)-->
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
 
+## 主な使用技術
+- Streamlit
+- FastAPI
+- ChatGPT API
 
 ------------------------
 ## ToDo
