@@ -43,7 +43,7 @@
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
 
 ### テスト画面
-<img width=80% alt="testmode" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/0d91c78b-6fcf-47f7-a1f5-d493cc65e3f6">
+<img width=80% alt="test" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/452a2818-63a8-4d92-a426-46fa5117d26c">
 
 <br>
 <br>
