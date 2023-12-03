@@ -16,7 +16,7 @@ import streamlit as st
 import requests
 import json
 
-page = st.sidebar.selectbox('Choose your page', ['registration', 'list'])
+page = st.sidebar.selectbox('Choose your page', ['registration', 'list','test'])
 
 
 def init_messages():
@@ -46,6 +46,10 @@ def build_prompt(content, n_chars=300):
     "origin":<origin(日本語)>
     """
 
+def build_prompt_test(word,content, n_chars=300):
+    return f"""{word}の日本語訳として{content}は正しいですか？
+    正しければTrueのみを、そうでなければFalseのみを出力してください.
+    """
 
 def get_answer(llm, messages):
     with get_openai_callback() as cb:
@@ -178,3 +182,40 @@ elif page == 'list':
 
     # セッション状態を更新
     st.session_state["current_index"] = current_index
+
+elif page=="test":
+ 
+    init_messages()
+    llm=select_model()
+
+    res = requests.get('http://127.0.0.1:8000/memos')
+    records = res.json()
+    word=records[0]["word"]    
+
+    st.title("単語理解度テスト")
+
+    with st.form(key='registration'):
+        content: str = st.text_input(f'{word} の日本語訳は?', max_chars=100)
+        data = {
+                'word': content
+        }
+        submit_button = st.form_submit_button(label='確認')
+
+        if submit_button:
+            prompt = build_prompt_test(word,content)
+            st.session_state.messages.append(HumanMessage(content=prompt))
+            with st.spinner("ChatGPT is judging ..."):
+                answer, cost = get_answer(llm, st.session_state.messages)
+            st.session_state.costs.append(cost)
+
+            if answer:
+                if answer=="True":
+                    st.success("正解です!")
+                else:
+                    st.warning("不正解です")
+
+        
+    costs = st.session_state.get('costs', [])
+    st.sidebar.markdown("## Costs")
+    st.sidebar.markdown(f"**Total cost: ${sum(costs):.5f}**")
+   
