@@ -42,6 +42,14 @@
 <!-- ![exacerbate](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652)-->
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
 
+### テスト画面
+<img width=80% alt="testmode" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/0d91c78b-6fcf-47f7-a1f5-d493cc65e3f6">
+
+<br>
+<br>
+単語リスト外面にて excerbate の意味として登録されている「悪化させる」と完全に同じでなくとも、ほぼ同じ意味を持つ「酷くなる」を回答できれば正解になります。
+
+
 ## 主な使用技術
 - Streamlit
 - FastAPI
