@@ -183,6 +183,7 @@ elif page == 'list':
     # セッション状態を更新
     st.session_state["current_index"] = current_index
 
+
 elif page=="test":
  
     init_messages()
@@ -210,8 +211,14 @@ elif page=="test":
 
             if answer:
                 if answer=="True":
+                    # ToDo
+                    # 正解時
+                    # 正答した英単語の 正解回数, 正解日時, 定着率 を更新する.
                     st.success("正解です!")
                 else:
+                    # ToDo
+                    # 不正解時
+                    # 単語を覚えるための情報(例文など)を表示する.
                     st.warning("不正解です")
 
         
