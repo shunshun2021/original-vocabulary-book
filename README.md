@@ -35,8 +35,9 @@
 
 ### 単語リスト画面
 <p>
-  <img width="70%" alt="exacerbate" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652">
-  <img width="70%" alt="disclose" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81">
+  <img width=80% alt="list_2word_per_page" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/0d4b8c6d-e2eb-4873-8771-e3fcb9876966">
+  <!-- <img width="70%" alt="exacerbate" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652">
+  <img width="70%" alt="disclose" src="https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81"> -->
 </p>
 <!-- ![exacerbate](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/d34a5c5e-d403-4ba1-9525-ffb187e37652)-->
 <!-- ![disclose](https://github.com/shunshun2021/original-vocabulary-book/assets/79389416/2e5d38ba-168b-4a4e-b252-043e23800f81)-->
