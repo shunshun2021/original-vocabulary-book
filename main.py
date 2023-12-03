@@ -47,7 +47,7 @@ def build_prompt(content, n_chars=300):
     """
 
 def build_prompt_test(word,content, n_chars=300):
-    return f"""{word}の日本語訳として{content}は正しいですか？
+    return f"""英単語 {word} の日本語訳として {content} は概ね正しいですか？
     正しければTrueのみを、そうでなければFalseのみを出力してください.
     """
 
@@ -138,7 +138,7 @@ elif page == 'list':
 
     # プルダウンサイドバーに表示させる
     word_per_page = st.sidebar.selectbox(
-        '1ページあたりに表示する単語数はここで変更可能',
+        '1ページあたりの単語数はここで変更',
         (1,2,4,8))
     
     # 1ページあたりの単語数に変更があった場合
