@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, String
 from database import Base
+import datetime
 
 class Memo(Base):
     __tablename__ = 'memos'
@@ -12,3 +13,7 @@ class Memo(Base):
     sample_sentence = Column(String,index=True)
     sample_sentence_in_japanese = Column(String,index=True)
     origin = Column(String,index=True)
+
+    number_of_correct_answer = Column(int, index=True)
+    date_of_correct_answer = Column(datetime.datetime, index=True)
+    retantion_rate = Column(float,index=True)
