@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 import model, schema
+import datetime
 
 # メモ一覧取得
 def get_memos(db: Session, skip: int = 0, limit: int = 100):
@@ -10,9 +11,11 @@ def create_memo(db: Session, memo: schema.MemoCreatingSchema):
     #db_memo = model.Memo(content = memo.content)
     db_memo = model.Memo(word = memo.word, japanese = memo.japanese,
                          sample_sentence = memo.sample_sentence,sample_sentence_in_japanese = memo.sample_sentence_in_japanese,
-                         origin = memo.origin)
+                         origin = memo.origin,number_of_correct_answer=0,date_of_correct_answer=datetime.datetime.now(),retantion_rate=0.0)
 
     db.add(db_memo)
     db.commit()
     db.refresh(db_memo)
     return db_memo
+
+# テストにおける正答時

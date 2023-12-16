@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime, Float
 from database import Base
 import datetime
 
@@ -14,6 +14,6 @@ class Memo(Base):
     sample_sentence_in_japanese = Column(String,index=True)
     origin = Column(String,index=True)
 
-    number_of_correct_answer = Column(int, index=True)
-    date_of_correct_answer = Column(datetime.datetime, index=True)
-    retantion_rate = Column(float,index=True)
+    number_of_correct_answer = Column(Integer, index=True)
+    date_of_correct_answer = Column(DateTime, index=True)
+    retantion_rate = Column(Float,index=True)
