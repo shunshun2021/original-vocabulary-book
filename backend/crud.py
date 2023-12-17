@@ -1,10 +1,12 @@
 from sqlalchemy.orm import Session
 import model, schema
 import datetime
+from sqlalchemy import desc
 
 # メモ一覧取得
 def get_memos(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(model.Memo).offset(skip).limit(limit).all()
+    # retentn_rateの昇順でソート
+    return db.query(model.Memo).order_by(model.Memo.retention_rate).offset(skip).limit(limit).all()
 
 # メモ登録
 def create_memo(db: Session, memo: schema.MemoCreatingSchema):
