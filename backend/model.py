@@ -16,4 +16,4 @@ class Memo(Base):
 
     number_of_correct_answer = Column(Integer, index=True)
     date_of_correct_answer = Column(DateTime, index=True)
-    retantion_rate = Column(Float,index=True)
+    retention_rate = Column(Float,index=True)

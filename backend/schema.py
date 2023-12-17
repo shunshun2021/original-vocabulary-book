@@ -14,7 +14,7 @@ class MemoSchema (BaseModel):
 
     number_of_correct_answer : int = Field()
     date_of_correct_answer : datetime.datetime = Field()
-    retantion_rate : float = Field()
+    retention_rate : float = Field()
 
     class Config:
         orm_mode = True
@@ -31,7 +31,7 @@ class MemoCreatingSchema (BaseModel):
 
     number_of_correct_answer : int = Field(0)
     date_of_correct_answer : datetime.datetime = Field(datetime.datetime.now())
-    retantion_rate : float = Field(0.0)
+    retention_rate : float = Field(0.0)
     
     class Config:
         orm_mode = True
