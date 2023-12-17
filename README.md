@@ -53,6 +53,7 @@
 ## 主な使用技術
 - Streamlit
 - FastAPI
+- SQLite
 - ChatGPT API
 
 ------------------------
