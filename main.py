@@ -118,8 +118,8 @@ if page == 'registration':
         st.sidebar.markdown(f"- ${cost:.5f}")
 
 
-elif page == 'list':
 
+elif page == 'list':
     
     st.title('単語リスト')
     res = requests.get('http://127.0.0.1:8000/memos')
@@ -215,11 +215,26 @@ elif page=="test":
                     # 正解時
                     # 正答した英単語の 正解回数, 正解日時, 定着率 を更新する.
                     st.success("正解です!")
+                    url = f'http://127.0.0.1:8000/correct/{word}'
+                    #data["word"]=word
+                    data={"word":word}
+                    res = requests.post(
+                        url,
+                        #data=json.dumps(data)
+                        #word=word
+                    )
+                    print(data)
+                    if res.status_code == 200:
+                        st.success('正解処理が正常に処理されました')
+                    else:
+                        st.warning("正解処理に不具合があります")
+
                 else:
                     # ToDo
                     # 不正解時
                     # 単語を覚えるための情報(例文など)を表示する.
                     st.warning("不正解です")
+
 
         
     costs = st.session_state.get('costs', [])

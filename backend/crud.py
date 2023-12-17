@@ -19,3 +19,23 @@ def create_memo(db: Session, memo: schema.MemoCreatingSchema):
     return db_memo
 
 # テストにおける正答時
+def correct_answer(db: Session, word: str):
+    #data = db.query(model.Memo).filter(model.Memo.word==word)
+    #instance = db.query(model.Memo).filter(model.Memo.word==word).first()
+    data = db.query(model.Memo).filter(model.Memo.word==word).first()
+    if data:
+
+        data.number_of_correct_answer=data.number_of_correct_answer+1
+        data.date_of_correct_answer=datetime.datetime.now()
+        data.retantion_rate=100.0
+
+    #data.update({
+    #    model.Memo.number_of_correct_answer : instance.number_of_correct_answer+1,
+    #    model.Memo.date_of_correct_answer:datetime.datetime.now(),
+    #    model.Memo.retantion_rate:100.0
+    #})
+    
+    db.commit()
+
+    return {"message":"success"}
+
