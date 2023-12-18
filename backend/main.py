@@ -26,7 +26,7 @@ async def handler(request:Request, exc:RequestValidationError):
 
 
 # メモ参照
-@app.get("/memos", response_model=List[schema.MemoSchema])
+@app.get("/memos", response_model=List[schema.MemoSchema]) # パスオペレーションデコレータを定義
 #@app.get("/memos")
 async def read_memos(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     memos = crud.get_memos(db, skip=skip, limit=limit)
