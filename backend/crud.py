@@ -4,6 +4,7 @@ import datetime
 from sqlalchemy import desc
 import math
 
+
 def forgetting_carve(number_of_correct_answer:int,date_of_correct_answer: datetime.datetime):
     # 参考：https://en.wikipedia.org/wiki/Forgetting_curve
     if(number_of_correct_answer==0):
@@ -11,6 +12,7 @@ def forgetting_carve(number_of_correct_answer:int,date_of_correct_answer: dateti
 
     # 忘却曲線の計算に必要な定数
     c,k = 1.25, 1.84
+    EPS=5
     
     # 現在時刻の取得
     now=datetime.datetime.now()
@@ -19,8 +21,11 @@ def forgetting_carve(number_of_correct_answer:int,date_of_correct_answer: dateti
     # 分単位に直す
     time=time.seconds/60
     # 定着率の計算
-    #b = 100*k/(pow(math.log(time),c))+k
-    b = 100*k/(pow(math.log10(time),c)+k)
+    if(time < EPS):
+        # 5分以内に回答したものは100%定着とする.(log_10 の計算においてcomplex型を出現させないため)
+        b=100
+    else:
+        b = 100*k/(pow(math.log10(time),c)+k)
     # 1回正解するごとに記憶の減衰率が半分になるようにする。
     forget = (100-b)/pow(2,number_of_correct_answer)
     b = 100-forget
