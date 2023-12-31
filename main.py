@@ -76,7 +76,8 @@ if page == 'registration':
                 #'content': content
                 'word': content
         }
-        example_sentence = st.checkbox(label="例文を作成し、語源の説明を追加する")        
+        #example_sentence = st.checkbox(label="例文を作成し、語源の説明を追加する")
+        example_sentence=True  # 一旦デフォでTrue
         submit_button = st.form_submit_button(label='登録')
 
         if submit_button:
@@ -202,38 +203,43 @@ elif page=="test":
         }
         submit_button = st.form_submit_button(label='確認')
 
-        if submit_button:
-            prompt = build_prompt_test(word,content)
-            st.session_state.messages.append(HumanMessage(content=prompt))
-            with st.spinner("ChatGPT is judging ..."):
-                answer, cost = get_answer(llm, st.session_state.messages)
-            st.session_state.costs.append(cost)
 
-            if answer:
-                if answer=="True":
-                    # ToDo
-                    # 正解時
-                    # 正答した英単語の 正解回数, 正解日時, 定着率 を更新する.
-                    st.success("正解です!")
-                    url = f'http://127.0.0.1:8000/correct/{word}'
-                    #data["word"]=word
-                    data={"word":word}
-                    res = requests.post(
-                        url,
-                        #data=json.dumps(data)
-                        #word=word
-                    )
-                    print(data)
-                    if res.status_code == 200:
-                        st.success('正解処理が正常に処理されました')
-                    else:
-                        st.warning("正解処理に不具合があります")
+    if submit_button:
+        prompt = build_prompt_test(word,content)
+        st.session_state.messages.append(HumanMessage(content=prompt))
+        with st.spinner("ChatGPT is judging ..."):
+            answer, cost = get_answer(llm, st.session_state.messages)
+        st.session_state.costs.append(cost)
 
+        if answer:
+            if answer=="True":
+                # ToDo
+                # 正解時
+                # 正答した英単語の 正解回数, 正解日時, 定着率 を更新する.
+                st.success("正解です!")
+                url = f'http://127.0.0.1:8000/correct/{word}'
+                #data["word"]=word
+                data={"word":word}
+                res = requests.post(
+                    url,
+                    #data=json.dumps(data)
+                    #word=word
+                )
+                print(data)
+                if res.status_code == 200:
+                    # st.success('正解処理が正常に処理されました')
+                    
+                    # ページのリロード (もう少し上手く実装する方法がありそう)
+                    if st.button("次の単語"):
+                        page="test"
                 else:
-                    # ToDo
-                    # 不正解時
-                    # 単語を覚えるための情報(例文など)を表示する.
-                    st.warning("不正解です")
+                    st.warning("正解処理に不具合があります")
+
+            else:
+                # ToDo
+                # 不正解時
+                # 単語を覚えるための情報(例文など)を表示する.
+                st.warning("不正解です")
 
 
         
